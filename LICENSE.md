@@ -1,6 +1,7 @@
 MIT License
 
 Copyright (c) takorojo (Tako Rojo) <112791133+takorojo@users.noreply.github.com>
+
 Copyright (c) contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
