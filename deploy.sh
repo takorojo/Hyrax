@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+PLUGIN_FILE=( build/libs/hyrax-*.jar )
+DESTINATION=$MINECRAFT_DEV_SERVER_PLUGIN_DIR
+
+echo "Deploying $PLUGIN_FILE to $DESTINATION..."
+
+cp $PLUGIN_FILE "$DESTINATION"
