@@ -1,0 +1,22 @@
+# Root editorconfig file
+root = true
+
+[*]
+insert_final_newline = true
+
+[*.{md, java}]
+indent_size = 2
+indent_style = space
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+max_line_length = 80
+
+[*.xml]
+indent_size = 4
+indent_style = space
+end_of_line = lf
+trim_trailing_whitespace = true
+
+[.editorconfig]
+trim_trailing_whitespace = true
