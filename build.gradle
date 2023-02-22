@@ -1,9 +1,9 @@
 plugins {
     id 'java'
+    id "com.github.rising3.semver" version "0.8.2"
 }
 
 group = 'io.github.takorojo'
-version = '0.1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
