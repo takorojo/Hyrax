@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'io.github.takorojo'
-version = '0.1.0-archeo'
+version = '0.1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
