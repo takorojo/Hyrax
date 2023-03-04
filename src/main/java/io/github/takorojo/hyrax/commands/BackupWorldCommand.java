@@ -70,10 +70,12 @@ public class BackupWorldCommand implements CommandExecutor {
     }
 
     private void createBackupDirectory() {
-        if (!HyraxConstants.BACKUP_DIRECTORY.toFile().exists()) {
+        Path backupDirectory = HyraxConstants.BACKUP_DIRECTORY;
+
+        if (!backupDirectory.toFile().exists()) {
             Bukkit.getLogger().info("Backup directory does not exist.  Creating...");
 
-            if (HyraxConstants.BACKUP_DIRECTORY.toFile().mkdir()) {
+            if (backupDirectory.toFile().mkdir()) {
                 Bukkit.getLogger().info("Backup directory created!");
                 createBackupDirectory();
             } else {
