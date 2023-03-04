@@ -2,6 +2,7 @@ package io.github.takorojo.hyrax.commands;
 
 import com.onarandombox.MultiverseCore.api.MVWorldManager;
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;
+import io.github.takorojo.hyrax.utils.HyraxConstants;
 import io.github.takorojo.hyrax.utils.HyraxPermissions;
 import io.github.takorojo.hyrax.utils.ZipUtils;
 import org.bukkit.Bukkit;
@@ -20,8 +21,6 @@ import static io.github.takorojo.hyrax.Hyrax.core;
 
 public class BackupWorldCommand implements CommandExecutor {
     private Player player;
-    private Path working_directory = Paths.get(System.getProperty("user.dir"));
-    private Path backup_directory = Paths.get(working_directory.toString(), "backups");
 
     /**
      * Executes the given command, returning its success.
@@ -63,7 +62,7 @@ public class BackupWorldCommand implements CommandExecutor {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime now = LocalDateTime.now();
         String backup_filename = getWorldName() + "_" + dtf.format(now) + ".zip";
-        Path backup_file_path = Paths.get(backup_directory.toString(), backup_filename);
+        Path backup_file_path = Paths.get(HyraxConstants.BACKUP_DIRECTORY.toString(), backup_filename);
 
         Bukkit.getLogger().info("Backing up to: " + backup_file_path);
 
@@ -71,10 +70,10 @@ public class BackupWorldCommand implements CommandExecutor {
     }
 
     private void createBackupDirectory() {
-        if (!backup_directory.toFile().exists()) {
+        if (!HyraxConstants.BACKUP_DIRECTORY.toFile().exists()) {
             Bukkit.getLogger().info("Backup directory does not exist.  Creating...");
 
-            if (backup_directory.toFile().mkdir()) {
+            if (HyraxConstants.BACKUP_DIRECTORY.toFile().mkdir()) {
                 Bukkit.getLogger().info("Backup directory created!");
                 createBackupDirectory();
             } else {
