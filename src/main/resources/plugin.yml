@@ -2,8 +2,12 @@ name: Hyrax
 version: '${version}'
 main: io.github.takorojo.hyrax.Hyrax
 api-version: 1.19
-depend: [ Multiverse ]
+depend: [ Multiverse-Core ]
 softdepend: [ LuckPerms ]
 authors: [ takorojo ]
 description: A backup utility for Minecraft worlds on Bukkit/Paper servers
 website: https://github.com/takorojo/hyrax
+commands:
+  backup-world:
+    description: Back up the current world to the server's backup directory
+    usage: /backup-world
