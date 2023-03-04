@@ -1,7 +1,5 @@
 package io.github.takorojo.hyrax.commands;
 
-import com.onarandombox.MultiverseCore.MVWorld;
-import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.onarandombox.MultiverseCore.api.MVWorldManager;
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;
 import io.github.takorojo.hyrax.utils.HyraxPermissions;
@@ -13,18 +11,17 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static io.github.takorojo.hyrax.Hyrax.core;
+
 public class BackupWorldCommand implements CommandExecutor {
     private Player player;
     private Path working_directory = Paths.get(System.getProperty("user.dir"));
     private Path backup_directory = Paths.get(working_directory.toString(), "backups");
-
-    private final MultiverseCore core = (MultiverseCore) Bukkit.getServer().getPluginManager().getPlugin("Multiverse-Core");
 
     /**
      * Executes the given command, returning its success.
