@@ -74,7 +74,7 @@ public class ZipUtils {
 
             zip.closeEntry();
         } catch (FileNotFoundException e) {
-            Bukkit.getLogger().severe(zip_file_path + "not found.");
+            Bukkit.getLogger().severe(zip_file_path + " not found.");
         } catch (IOException e) {
             Bukkit.getLogger().severe(e.getLocalizedMessage());
         }

@@ -32,6 +32,7 @@ import static io.github.takorojo.hyrax.utils.HyraxWorldUtils.getWorld;
 import static io.github.takorojo.hyrax.utils.HyraxWorldUtils.getWorldName;
 
 public class RestoreWorldCommand implements CommandExecutor {
+    public static final String NO_BACKUPS_EXIST_ERROR_MESSAGE = "No backups exist.  Nothing to restore.";
     private Player player;
 
     /**
@@ -58,6 +59,9 @@ public class RestoreWorldCommand implements CommandExecutor {
 
         if (player.hasPermission(HyraxPermissions.HYRAX_BACKUP_WORLD)) {
             restoreCurrentWorld();
+            player.sendMessage(NO_BACKUPS_EXIST_ERROR_MESSAGE);
+            Bukkit.getLogger().info(NO_BACKUPS_EXIST_ERROR_MESSAGE);
+            return false;
         }
 
         return true;
@@ -67,12 +71,14 @@ public class RestoreWorldCommand implements CommandExecutor {
         Path copy_path = getLatestBackupFilePath();
         Path paste_path = Paths.get(HyraxConstants.WORKING_DIRECTORY.toString(), getWorldName(player));
 
-        Bukkit.getLogger().info("Copy path: " + copy_path);
-        Bukkit.getLogger().info("Paste path: " + paste_path);
+        if (copy_path != null) {
+            Bukkit.getLogger().info("Copy path: " + copy_path);
+            Bukkit.getLogger().info("Paste path: " + paste_path);
 
-        kickAllPlayers(getWorld(player));
-        ZipUtils.extractZipFile(copy_path, paste_path);
-        core.getServer().shutdown();
+            kickAllPlayers(getWorld(player));
+            ZipUtils.extractZipFile(copy_path, paste_path);
+            core.getServer().shutdown();
+        }
     }
 
     private Path getLatestBackupFilePath() {
@@ -100,6 +106,10 @@ public class RestoreWorldCommand implements CommandExecutor {
 
             }
 
+        }
+
+        if (latest_date.equals(new HyraxDate("0"))) {
+            return null;
         }
 
         String filename = getWorldName(player) + "_" + latest_date + ".zip";
