@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static io.github.takorojo.hyrax.Hyrax.core;
+import static io.github.takorojo.hyrax.utils.HyraxPlayerUtils.isPlayer;
 import static io.github.takorojo.hyrax.utils.HyraxWorldUtils.getWorld;
 import static io.github.takorojo.hyrax.utils.HyraxWorldUtils.getWorldName;
 
@@ -84,16 +85,5 @@ public class BackupWorldCommand implements CommandExecutor {
                 Bukkit.getLogger().info("Backup directory not created.  This should never happen.");
             }
         }
-    }
-
-    /**
-     * Check if the given sender is a Player
-     *
-     * @param sender sender to check
-     *
-     * @return True if a player, else false.
-     */
-    private boolean isPlayer(@NotNull CommandSender sender) {
-        return sender instanceof Player;
     }
 }

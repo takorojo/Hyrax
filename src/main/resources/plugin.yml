@@ -11,3 +11,6 @@ commands:
   backup-world:
     description: Back up the current world to the server's backup directory
     usage: /backup-world
+  restore-world:
+    description: Restore the current world's latest backup if there is one
+    usage: /restore-world
