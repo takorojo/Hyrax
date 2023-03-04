@@ -18,6 +18,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static io.github.takorojo.hyrax.Hyrax.core;
+import static io.github.takorojo.hyrax.utils.HyraxWorldUtils.getWorld;
+import static io.github.takorojo.hyrax.utils.HyraxWorldUtils.getWorldName;
 
 public class BackupWorldCommand implements CommandExecutor {
     private Player player;
@@ -25,8 +27,8 @@ public class BackupWorldCommand implements CommandExecutor {
     /**
      * Executes the given command, returning its success.
      * <br>
-     * If false is returned, then the "usage" plugin.yml entry for this command (if defined) will be sent to the
-     * player.
+     * If false is returned, then the "usage" plugin.yml entry for this command
+     * (if defined) will be sent to the player.
      *
      * @param sender  Source of the command
      * @param command Command which was executed
@@ -45,7 +47,7 @@ public class BackupWorldCommand implements CommandExecutor {
         player = (Player) sender;
 
         if (player.hasPermission(HyraxPermissions.HYRAX_BACKUP_WORLD)) {
-            Bukkit.getLogger().info("World name: " + getWorldName());
+            Bukkit.getLogger().info("World name: " + getWorldName(player));
 
             backupCurrentWorld();
         }
@@ -61,12 +63,12 @@ public class BackupWorldCommand implements CommandExecutor {
     private void createBackupFile() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime now = LocalDateTime.now();
-        String backup_filename = getWorldName() + "_" + dtf.format(now) + ".zip";
+        String backup_filename = getWorldName(player) + "_" + dtf.format(now) + ".zip";
         Path backup_file_path = Paths.get(HyraxConstants.BACKUP_DIRECTORY.toString(), backup_filename);
 
         Bukkit.getLogger().info("Backing up to: " + backup_file_path);
 
-        ZipUtils.createZipFile(backup_file_path, getWorld());
+        ZipUtils.createZipFile(backup_file_path, getWorld(player));
     }
 
     private void createBackupDirectory() {
@@ -84,19 +86,11 @@ public class BackupWorldCommand implements CommandExecutor {
         }
     }
 
-    private MultiverseWorld getWorld() {
-        MVWorldManager worldManager = core.getMVWorldManager();
-        return worldManager.getMVWorld(getWorldName());
-    }
-
-    private String getWorldName() {
-        return player.getWorld().getName();
-    }
-
     /**
      * Check if the given sender is a Player
      *
      * @param sender sender to check
+     *
      * @return True if a player, else false.
      */
     private boolean isPlayer(@NotNull CommandSender sender) {
